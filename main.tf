@@ -25,9 +25,6 @@ locals {
   count         = var.enabled
   s3_arn_prefix = "arn:${one(data.aws_partition.default[*].partition)}:s3:::"
   is_vpc        = var.vpc_id != null
-
-  user_names = length(var.sftp_users) > 0 ? [for user in var.sftp_users : user.user_name] : []
-
   user_names_map = length(var.sftp_users) > 0 ? {
     for user in var.sftp_users :
     user.user_name => merge(user, {
